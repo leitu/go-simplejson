@@ -282,6 +282,27 @@ func (j *Json) MustMap(args ...map[string]interface{}) map[string]interface{} {
 	return def
 }
 
+//MustMapstring string
+
+func (j *Json) MustMapString(args ...map[string]string) map[string]string {
+	var def map[string]string
+
+	switch len(args) {
+	case 0:
+	case 1:
+		def = args[0]
+	default:
+		log.Panicf("MustMapString() received too many arguments %d", len(args))
+	}
+
+	a, err := j.Map()
+	if err == nil {
+		return a
+	}
+
+	return def
+}
+
 // MustString guarantees the return of a `string` (with optional default)
 //
 // useful when you explicitly want a `string` in a single value return context:
